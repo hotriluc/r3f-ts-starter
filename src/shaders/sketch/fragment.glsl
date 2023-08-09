@@ -1,5 +1,5 @@
-uniform vec2 u_resolution;
-uniform float u_time;
+uniform vec2 uResolution;
+uniform float uTime;
 
 varying vec2 vUv;
 
@@ -8,12 +8,12 @@ varying vec2 vUv;
 
 void main () {
 
-  vec2 st = vUv / u_resolution.xy ;
-  st = st * 2.0 - 1.0 ;
-  st.x *= u_resolution.x / u_resolution.y;
+// Move uv to center and normalize
+  vec2 st = gl_FragCoord.xy / uResolution.xy * 2.0 - 1.0;
 
- 
+  // Keep aspect ration
+  st.x *= uResolution.x/ uResolution.y;
 
 
-  gl_FragColor = vec4(vec3(st.x), 1.);
+  gl_FragColor = vec4(vec3(st, 1.0), 1.);
 }
